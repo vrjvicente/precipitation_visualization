@@ -5,6 +5,9 @@ from datetime import datetime
 import matplotlib.pyplot as plt
 
 def save_figure():
+    """Asks the user if they want a copy of the figure and if so, save
+    the file.
+    """
     while True:
         save_prompt = ("Would you like a copy of the figure?\n"
                     "> ")
@@ -21,6 +24,7 @@ def save_figure():
             print("Incorrect answer.")
 
 def visualization(dates, prcps, loc, year):
+    """Generates and views the figure using the given parameters."""
     plt.style.use('seaborn-v0_8')
     fig, ax = plt.subplots(figsize=(12, 6))
     ax.plot(dates, prcps, color='darkturquoise')
@@ -37,6 +41,9 @@ def visualization(dates, prcps, loc, year):
     plt.show()
 
 def data_extract(reader):
+    """Gathers the dates and precipitation from the CSV file and asks the
+    user for the location and timeframe of the data.
+    """
     dates, prcps = [], []
     for row in reader:
         current_date = datetime.strptime(row[date_index], '%Y-%m-%d')
@@ -96,7 +103,3 @@ else:
               "and its date (DATE).")
     else:
         data_extract(reader)
-
-        
-
-
