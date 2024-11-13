@@ -4,6 +4,8 @@ from datetime import datetime
 
 import matplotlib.pyplot as plt
 
+#A TEST
+
 intro = ("This program shows a visual representation of precipitation "
          "in a given area from a user's CSV file.")
 instruction = ("\nMake sure the CSV file is stored in the "
