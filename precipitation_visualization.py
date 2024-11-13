@@ -6,14 +6,16 @@ import matplotlib.pyplot as plt
 
 def save_figure():
     while True:
-        save_prompt = ("Would you like to save a copy of the figure? (y/n)\n"
+        save_prompt = ("Would you like a copy of the figure?\n"
                     "> ")
         save_answer = input(save_prompt).lower()
 
-        if save_answer == 'y':
+        if save_answer == 'y' or save_answer == 'yes':
             plt.savefig(f'figures/{file_name}.png', bbox_inches='tight')
+            print(f"\n---------- {file_name}.png has been saved in 'figures'. "
+                  "----------\n") 
             break
-        elif save_answer == 'n':
+        elif save_answer == 'n' or save_answer == 'no':
             break
         else:
             print("Incorrect answer.")
@@ -23,7 +25,7 @@ def visualization(dates, prcps, loc, year):
     fig, ax = plt.subplots(figsize=(12, 6))
     ax.plot(dates, prcps, color='darkturquoise')
 
-    ax.set_title(f"Precipitation, {year}"
+    ax.set_title(f"Precipitation from {year}"
                 f"\n{loc}", fontsize=18)
     ax.set_xlabel('', fontsize=16)
     fig.autofmt_xdate()
@@ -31,6 +33,7 @@ def visualization(dates, prcps, loc, year):
     ax.tick_params(labelsize=16)
 
     save_figure()
+    print("\n---------- Currently viewing figure... ----------\n")
     plt.show()
 
 def data_extract(reader):
@@ -46,7 +49,7 @@ def data_extract(reader):
             prcps.append(prcp)
     location = input("Please enter the location of this data.\n"
                         "> ")
-    year = input("Please enter the year of this data.\n"
+    year = input("Please enter the timeframe of this data.\n"
                     "> ")
     visualization(dates, prcps, location, year)
 
@@ -56,10 +59,14 @@ def collect_index(header, string):
         if column_header == string:
             return index
 
+print("---------------------------")
+print("Precipitation Visualization")
+print("---------------------------")
+
 intro = ("This program shows a visual representation of precipitation "
          "in a given area from a user's CSV file.")
 instruction = ("\nMake sure the CSV file is stored in the "
-               "data folder.")
+               "'./precipitation_visualization/data' folder.")
 
 print(intro, instruction)
 
@@ -71,7 +78,9 @@ path = Path(f'data/{file_name}.csv')
 try:
     lines = path.read_text(encoding='utf-8').splitlines()
 except FileNotFoundError:
-    print(f"The file {file_name}.csv is not in the data folder.")
+    print(f"\nThe file {file_name}.csv can not be found.\nPlease make "
+          "sure that the file is in the folder and that the file is "
+          "spelled correctly.")
 else:
     reader = csv.reader(lines)
     header_row = next(reader)
@@ -79,8 +88,12 @@ else:
     date_index = collect_index(header_row, 'DATE')
     prcp_index = collect_index(header_row, 'PRCP')
 
+    print("\n---------- Collecting data... ----------\n")
     if not date_index or not prcp_index:
-        print("Error")
+        print("\nWas unable to find the precipitation data "
+              "for that file.\n"
+              "Please check the file for the precipitation (PRCP) "
+              "and its date (DATE).")
     else:
         data_extract(reader)
 
