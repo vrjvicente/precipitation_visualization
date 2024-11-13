@@ -10,20 +10,20 @@ def save_figure():
     """
     while True:
         save_prompt = ("Would you like a copy of the figure?\n"
-                    "> ")
+                       "> ")
         save_answer = input(save_prompt).lower()
 
         if save_answer == 'y' or save_answer == 'yes':
             plt.savefig(f'figures/{file_name}.png', bbox_inches='tight')
-            print(f"\n---------- {file_name}.png has been saved in 'figures'. "
+            print(f"\n---------- {file_name}.png has been saved in 'figures' "
                   "----------\n") 
             break
         elif save_answer == 'n' or save_answer == 'no':
             break
         else:
-            print("Incorrect answer.")
+            print("\nInvalid answer. Please try again.")
 
-def visualization(dates, prcps, loc, year):
+def generate_figure(dates, prcps, loc, year):
     """Generates and views the figure using the given parameters."""
     plt.style.use('seaborn-v0_8')
     fig, ax = plt.subplots(figsize=(12, 6))
@@ -55,10 +55,11 @@ def data_extract(reader):
             dates.append(current_date)
             prcps.append(prcp)
     location = input("Please enter the location of this data.\n"
-                        "> ")
+                     "> ")
     year = input("Please enter the timeframe of this data.\n"
-                    "> ")
-    visualization(dates, prcps, location, year)
+                 "> ")
+    print()
+    generate_figure(dates, prcps, location, year)
 
 def collect_index(header, string):
     """Scans for the desired category and return its index."""
@@ -70,15 +71,15 @@ print("---------------------------")
 print("Precipitation Visualization")
 print("---------------------------")
 
-intro = ("This program shows a visual representation of precipitation "
-         "in a given area from a user's CSV file.")
+intro = ("This program displays a visual representation of precipitation "
+         "in a given area from a CSV file.")
 instruction = ("\nMake sure the CSV file is stored in the "
                "'./precipitation_visualization/data' folder.")
 
 print(intro, instruction)
 
 file_name = input("\nPlease enter the CSV file you want to use for the data.\n"
-                    "> ")
+                  "> ")
 file_name = file_name.removesuffix('.csv')
 path = Path(f'data/{file_name}.csv')
 
