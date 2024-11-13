@@ -1,3 +1,2 @@
 # Precipitation Visualization
 In progress.
-.
