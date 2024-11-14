@@ -1,57 +1,7 @@
 from pathlib import Path
 import csv
-from datetime import datetime
 
-import matplotlib.pyplot as plt
-
-def save_figure():
-    while True:
-        save_prompt = ("Would you like a copy of the figure?\n"
-                    "> ")
-        save_answer = input(save_prompt).lower()
-
-        if save_answer == 'y' or save_answer == 'yes':
-            plt.savefig(f'figures/{file_name}.png', bbox_inches='tight')
-            print(f"\n---------- {file_name}.png has been saved in 'figures'. "
-                  "----------\n") 
-            break
-        elif save_answer == 'n' or save_answer == 'no':
-            break
-        else:
-            print("Incorrect answer.")
-
-def visualization(dates, prcps, loc, year):
-    plt.style.use('seaborn-v0_8')
-    fig, ax = plt.subplots(figsize=(12, 6))
-    ax.plot(dates, prcps, color='darkturquoise')
-
-    ax.set_title(f"Precipitation from {year}"
-                f"\n{loc}", fontsize=18)
-    ax.set_xlabel('', fontsize=16)
-    fig.autofmt_xdate()
-    ax.set_ylabel("Rainfall (mm)", fontsize=16)
-    ax.tick_params(labelsize=16)
-
-    save_figure()
-    print("\n---------- Currently viewing figure... ----------\n")
-    plt.show()
-
-def data_extract(reader):
-    dates, prcps = [], []
-    for row in reader:
-        current_date = datetime.strptime(row[date_index], '%Y-%m-%d')
-        try:
-            prcp = float(row[prcp_index])
-        except:
-            print(f"Missing data for {current_date}")
-        else:
-            dates.append(current_date)
-            prcps.append(prcp)
-    location = input("Please enter the location of this data.\n"
-                        "> ")
-    year = input("Please enter the timeframe of this data.\n"
-                    "> ")
-    visualization(dates, prcps, location, year)
+import generate_figure
 
 def collect_index(header, string):
     """Scans for the desired category and return its index."""
@@ -63,15 +13,15 @@ print("---------------------------")
 print("Precipitation Visualization")
 print("---------------------------")
 
-intro = ("This program shows a visual representation of precipitation "
-         "in a given area from a user's CSV file.")
+intro = ("This program displays a visual representation of precipitation "
+         "in a given area from a CSV file.")
 instruction = ("\nMake sure the CSV file is stored in the "
                "'./precipitation_visualization/data' folder.")
 
 print(intro, instruction)
 
 file_name = input("\nPlease enter the CSV file you want to use for the data.\n"
-                    "> ")
+                  "> ")
 file_name = file_name.removesuffix('.csv')
 path = Path(f'data/{file_name}.csv')
 
@@ -90,13 +40,10 @@ else:
 
     print("\n---------- Collecting data... ----------\n")
     if not date_index or not prcp_index:
-        print("\nWas unable to find the precipitation data "
+        print("Was unable to find the precipitation data "
               "for that file.\n"
               "Please check the file for the precipitation (PRCP) "
               "and its date (DATE).")
     else:
-        data_extract(reader)
-
-        
-
-
+        generate_figure.data_extract(reader, date_index, prcp_index,
+                                     file_name)
