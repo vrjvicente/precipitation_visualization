@@ -20,6 +20,7 @@ Visit <https://matplotlib.org/stable/install/index.html> for more information.
 
 ### Before the Program
 Make sure that the CSV file is located in the `/data` directory.
+- You can visit <https://www.ncdc.noaa.gov/cdo-web/> to obtain weather data.
 
 ### Running the Program
 1. Type in the file that is located in the 'data' directory. (Adding the `.csv` extension is optional.)
@@ -41,3 +42,10 @@ Error message: `Was unable to find the precipitation data for that file.`\
 The program looks into the first line of the file as the main header for `PRCP` and `DATE`. If one or both of the column names are missing,
 the error message will occur.
 - Check the CSV file and make sure that `PRCP` and `DATE` are included into the header and in its correct column.
+
+## License
+Distributed under the MIT Lisence. See `LICENSE` for more information.
+
+## Acknowledgments
+Python Crash Course, 3rd Edition - <https://nostarch.com/python-crash-course-3rd-edition> \
+NOAA Climate Data Online - <https://www.ncdc.noaa.gov/cdo-web/>
