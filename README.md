@@ -20,7 +20,6 @@ Visit <https://matplotlib.org/stable/install/index.html> for more information.
 
 ### Before the Program
 Make sure that the CSV file is located in the `/data` directory.
-- Weather files can be 
 
 ### Running the Program
 1. Type in the file that is located in the 'data' directory. (Adding the `.csv` extension is optional.)
