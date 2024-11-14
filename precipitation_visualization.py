@@ -47,3 +47,4 @@ else:
     else:
         generate_figure.data_extract(reader, date_index, prcp_index,
                                      file_name)
+        
