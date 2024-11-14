@@ -1,6 +1,11 @@
 # Precipitation Visualization
 Generates a figure from CSV data to show the amount of rainfall at a given location at a certain point in time.
 
+<figure>
+    <img src="/figures/fresno_2023.png" width="500" height="auto"
+         alt="Fresno, CA">
+</figure>
+
 ## Development
 **Language:** Python
 
