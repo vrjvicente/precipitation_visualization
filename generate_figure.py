@@ -58,3 +58,4 @@ def data_extract(reader, date_i, prcp_i, file):
                  "> ")
     print()
     generate_figure(dates, prcps, location, year, file)
+    
