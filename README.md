@@ -28,7 +28,7 @@ Make sure that the CSV file is located in the `/data` directory.
 - You can visit <https://www.ncdc.noaa.gov/cdo-web/> to obtain weather data.
 
 ### Running the Program
-1. Type in the file that is located in the 'data' directory. (Adding the `.csv` extension is optional.)
+1. Type in the file that is located in the `/data` directory. (Adding the `.csv` extension is optional.)
 2. The program will ask for the location of the data and the timeframe.
 3. The program will ask for if you would like to save the generated figure before viewing it.
     - The saved file will be located in the `/figures` directory.
